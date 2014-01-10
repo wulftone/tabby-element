@@ -7,11 +7,14 @@ import 'dart:html' as dom;
 
 class TabbyElement extends PolymerElement {
 
+
   final String currentTabClassName = 'tabby-current-tab',
                tabsClassName       = '.tabby-tab';
 
+
   dom.Element firstTab,
               currentTab;
+
 
   List tabContainers = toObservable([]),
        tabs          = toObservable([]);
