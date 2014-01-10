@@ -1,0 +1,46 @@
+<polymer-element name='tabby-element'>
+  
+  <script type="application/dart" src="tabby_element.dart"></script>
+
+  <template>
+    <style>
+      @host {
+        :scope {
+          border: 1px solid black;
+          display: inline-block !important;
+          padding: 10px;
+          margin: 0;
+        }
+      }
+      ul {
+        padding: 0;
+        margin: 0 0 10px 0;
+      }
+      li {
+        border: 1px solid black;
+        display: inline-block;
+        cursor: pointer;
+        margin: 1px;
+        padding: 10px;
+      }
+      li > a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .tabby-current-tab {
+        background: red !important;
+      }
+    </style>
+    
+    <ul>
+      <template repeat="{{ tab in tabContainers }}">
+        <li class='tabby-tab' on-click='{{ onTabClick }}'>
+          <a href='#{{ tab.id }}'>{{ tab.attributes['title'] }}</a>
+        </li>
+      </template>
+    </ul>        
+    
+    <content id="tabby-content" select="div"></content>
+  </template>
+  
+</polymer-element>

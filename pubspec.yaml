@@ -1,0 +1,6 @@
+name: trickster
+description: A sample web application
+dependencies:
+  browser: any
+  polymer: any
+  polymer_ui_elements: any
