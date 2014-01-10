@@ -59,12 +59,16 @@ class TabbyElement extends PolymerElement {
   }
 
 
-  setCurrentTabContainer(tabEl) {
-    var tabId = tabEl
+  extractTabId(tabEl) {
+    return tabEl
       .children
       .first
       .attributes['href'];
+  }
 
+
+  setCurrentTabContainer(tabEl) {
+    var tabId = extractTabId(tabEl);
     this.currentTabContainer = this.querySelector(tabId);
   }
 
