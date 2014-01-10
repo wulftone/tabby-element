@@ -1,6 +1,5 @@
-name: trickster
+name: tabbyElement
 description: A sample web application
 dependencies:
   browser: any
   polymer: any
-  polymer_ui_elements: any
