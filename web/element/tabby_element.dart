@@ -38,7 +38,7 @@ class TabbyElement extends PolymerElement {
     this.currentTab = tabEl;
     highlightTab(tabEl);
     setCurrentTabContainer(tabEl);
-    showCurrentTabContainer();
+    showTabContainer(this.currentTabContainer);
   }
 
 
@@ -69,9 +69,9 @@ class TabbyElement extends PolymerElement {
   }
 
 
-  showCurrentTabContainer() {
+  showTabContainer(tabContainerEl) {
     this.tabContainers.forEach( (el) {
-      if (el == this.currentTabContainer) {
+      if (el == tabContainerEl) {
         el.style.display = 'block';
       } else {
         el.style.display = 'none';
