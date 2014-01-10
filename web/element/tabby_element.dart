@@ -17,7 +17,7 @@ class TabbyElement extends PolymerElement {
 
 
   List tabContainers = toObservable([]),
-       tabs          = toObservable([]);
+       tabs;
 
 
   TabbyElement.created() : super.created() {
