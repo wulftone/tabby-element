@@ -13,11 +13,14 @@ class TabbyElement extends PolymerElement {
 
 
   dom.Element firstTab,
-              currentTab;
+              currentTab,
+              currentTabContainer;
 
 
-  List tabContainers = toObservable([]),
-       tabs;
+  ObservableList tabContainers = new ObservableList();
+
+
+  List tabs;
 
 
   TabbyElement.created() : super.created() {
@@ -27,23 +30,27 @@ class TabbyElement extends PolymerElement {
     });
 
     this.tabContainers.addAll(this.querySelectorAll('div'));
-
-    hideAllContainers();
   }
 
 
   focusTab(tabEl) {
+    unhighlightTab(this.currentTab);
     this.currentTab = tabEl;
-    highlightCurrentTab();
+    highlightTab(tabEl);
+    setCurrentTabContainer(tabEl);
     showCurrentTabContainer();
   }
 
 
-  hideAllContainers() {
-    this.tabContainers
-      .forEach( (el) =>
-        el.style.display = 'none'
-      );
+  highlightTab(tabEl) {
+    tabEl.classes.add(this.currentTabClassName);
+  }
+
+
+  unhighlightTab(tabEl) {
+    if (tabEl != null) {
+      tabEl.classes.remove(this.currentTabClassName);
+    }
   }
 
 
@@ -52,37 +59,23 @@ class TabbyElement extends PolymerElement {
   }
 
 
-  // This is a silly way to do this, we shouldn't
-  // have to select them each time.  The tabs
-  // should be an instance variable, but it doesn't
-  // want to see the "li" elements, so I can't select them.
-  unhighlightAllTabs() {
-    this.shadowRoot
-      .querySelectorAll(this.tabsClassName)
-      .forEach( (el) =>
-        el.classes.remove(this.currentTabClassName)
-      );
-  }
-
-
-  highlightCurrentTab() {
-    unhighlightAllTabs();
-    this.currentTab.classes.add(this.currentTabClassName);
-    print(this.currentTab.classes);
-    print(this.currentTab.children.first.attributes['href']);
-  }
-
-
-  showCurrentTabContainer() {
-    hideAllContainers();
-
-    var tabId = this.currentTab
+  setCurrentTabContainer(tabEl) {
+    var tabId = tabEl
       .children
       .first
       .attributes['href'];
 
-    this.querySelector(tabId)
-      .style
-      .display = 'block';
+    this.currentTabContainer = this.querySelector(tabId);
+  }
+
+
+  showCurrentTabContainer() {
+    this.tabContainers.forEach( (el) {
+      if (el == this.currentTabContainer) {
+        el.style.display = 'block';
+      } else {
+        el.style.display = 'none';
+      }
+    });
   }
 }
